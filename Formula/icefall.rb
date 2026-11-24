@@ -2,7 +2,7 @@ class Icefall < Formula
   desc "TLS record fragmentation proxy that bypasses SNI-based network blocking"
   homepage "https://github.com/TianleXiao/icefall"
   url "https://github.com/TianleXiao/icefall.git",
-      tag:      "v1.0.0",
+      tag:      "v1.1.0",
       revision: "fa240da51cf20d90689eb338789e267bfbc3699d"
   license "MIT"
   head "https://github.com/TianleXiao/icefall.git", branch: "main"
