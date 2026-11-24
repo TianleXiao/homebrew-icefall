@@ -3,7 +3,7 @@ class Icefall < Formula
   homepage "https://github.com/TianleXiao/icefall"
   url "https://github.com/TianleXiao/icefall.git",
       tag:      "v1.1.0",
-      revision: "fa240da51cf20d90689eb338789e267bfbc3699d"
+      revision: "f43cad4243ac7ab564ad05b056409323be6363aa"
   license "MIT"
   head "https://github.com/TianleXiao/icefall.git", branch: "main"
 
