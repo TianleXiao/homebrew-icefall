@@ -1,32 +1,14 @@
 class Icefall < Formula
-  desc "TLS record fragmentation proxy that bypasses SNI-based network blocking"
+  desc "TLS-record fragmentation proxy that bypasses SNI-based blocking"
   homepage "https://github.com/TianleXiao/icefall"
-  url "https://github.com/TianleXiao/icefall.git",
-      tag:      "v1.1.0",
-      revision: "e60f813cb83114451aaed0675145ec87b06b1e12"
+  url "https://github.com/TianleXiao/icefall.git", tag: "v1.3.0", revision: "05fba98b0d37784cd535c223af085e5fda9984d7"
+  version "1.3.0"
   license "MIT"
-  head "https://github.com/TianleXiao/icefall.git", branch: "main"
 
   depends_on "go" => :build
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w"), "."
-  end
-
-  def caveats
-    <<~EOS
-      启动代理：
-        icefall proxy 127.0.0.1:8899
-
-      首次运行先探测本机封锁情况（约 5 秒，生成 strategy.json）：
-        icefall discover
-
-      设为系统代理（PAC 自动分流）：
-        icefall setproxy pac
-
-      开机自启：
-        brew services start icefall
-    EOS
+    system "go", "build", *std_go_args(ldflags: "-s -w -X main.version=v1.3.0"), "."
   end
 
   service do
@@ -37,8 +19,7 @@ class Icefall < Formula
   end
 
   test do
-    assert_predicate bin/"icefall", :exist?
-    # pac 子命令生成 PAC 后退出 0，不阻塞，适合做冒烟测试
     assert_match "FindProxyForURL", shell_output("#{bin}/icefall pac 2>&1")
+    assert_match "v1.3.0", shell_output("#{bin}/icefall version 2>&1")
   end
 end
